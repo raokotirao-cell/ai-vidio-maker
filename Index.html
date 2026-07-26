@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Video Maker</title>
+
+<style>
+body{
+background:#111;
+color:white;
+text-align:center;
+font-family:Arial;
+}
+
+button{
+background:#0066ff;
+color:white;
+padding:15px;
+border:none;
+border-radius:10px;
+font-size:18px;
+margin:10px;
+}
+
+img,video{
+width:280px;
+margin-top:15px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🎬 AI Video Maker</h1>
+
+<p>Select Image</p>
+
+<input type="file" accept="image/*" id="file">
+
+<br>
+
+<img id="image">
+
+<br><br>
+
+<textarea id="prompt"
+placeholder="Write cinematic video idea..."
+style="width:300px;height:80px;"></textarea>
+
+<br>
+
+<button onclick="generateVideo()">
+Generate Video
+</button>
+
+<h3 id="status"></h3>
+
+<video id="video" controls style="display:none;">
+</video>
+
+
+<script>
+
+document.getElementById("file").onchange=function(e){
+
+document.getElementById("image").src =
+URL.createObjectURL(e.target.files[0]);
+
+}
+
+function generateVideo(){
+
+document.getElementById("status").innerHTML =
+"AI Creating Video...";
+
+
+setTimeout(function(){
+
+document.getElementById("status").innerHTML =
+"Video Ready!";
+
+let video=document.getElementById("video");
+
+video.style.display="block";
+
+
+
+
+
+},5000);
+
+// AI API connection placeholder
+
+let apiStatus = document.getElementById("status");
+
+apiStatus.innerHTML = 
+"Sending image and prompt to AI...";
+
+}
+
+
+
+</script>
+
+</body>
+</html>
