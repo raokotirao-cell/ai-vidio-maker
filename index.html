@@ -68,33 +68,44 @@ URL.createObjectURL(e.target.files[0]);
 
 }
 
-function generateVideo(){
+async function generateVideo(){
 
 document.getElementById("status").innerHTML =
 "AI Creating Video...";
 
+const prompt = document.getElementById("prompt").value;
 
-setTimeout(function(){
+const response = await fetch("/api/generate-video", {
+  method: "POST",
+  headers:{
+    "Content-Type":"application/json"
+  },
+  body: JSON.stringify({
+    prompt: prompt
+  })
+});
 
-document.getElementById("status").innerHTML =
-"Video Ready!";
+const data = await response.json();
+
+console.log(data);
+
+if(data.videoUrl){
 
 let video=document.getElementById("video");
 
 video.style.display="block";
-
-video.src = "https://www.w3schools.com/html/mov_bbb.mp4";
-
+video.src=data.videoUrl;
 video.play();
 
-},5000);
+document.getElementById("status").innerHTML =
+"Video Ready!";
 
-// AI API connection placeholder
+}else{
 
-let apiStatus = document.getElementById("status");
+document.getElementById("status").innerHTML =
+"Video URL not received";
 
-apiStatus.innerHTML = 
-"Sending image and prompt to AI...";
+}
 
 }
 
