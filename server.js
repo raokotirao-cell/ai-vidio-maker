@@ -10,11 +10,9 @@ app.get("/", (req, res) => {
   res.send("AI Video Backend Running");
 });
 
-app.post("/generate-video", async (req, res) => {
+app.post("/api/generate-video", async (req, res) => {
   try {
     const { prompt } = req.body;
-
-    // ఇక్కడ తర్వాత Pika AI API call add చేస్తాం
 
     res.json({
       success: true,
@@ -30,8 +28,4 @@ app.post("/generate-video", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+module.exports = app;
