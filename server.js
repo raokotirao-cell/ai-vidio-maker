@@ -14,7 +14,8 @@ app.post("/api/generate-video", async (req, res) => {
   try {
     const { prompt } = req.body;
 
-    const response = await fetch("https://pollo.ai/api/platform/generation/luma/luma-ray-2-0", {
+    const response = await
+console.log(data); fetch("https://pollo.ai/api/platform/generation/luma/luma-ray-2-0", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
