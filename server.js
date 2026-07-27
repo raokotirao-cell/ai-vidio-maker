@@ -14,33 +14,18 @@ app.post("/api/generate-video", async (req, res) => {
   try {
     const { prompt } = req.body;
 
-    const response = await fetch("https://api.pollo.ai/v1/video/generate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.API_KEY}`
-      },
-      body: JSON.stringify({
-        prompt: prompt,
-        duration: 10
-      })
-    });
-
-    const data = await response.json();
-
-console.log(data);
-
-    res.json({
-      success: true,
-      data: data
-    });
-
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      error: err.message
-    });
-  }
+    const response = await fetch("https://pollo.ai/api/platform/generation/luma/luma-ray-2-0", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "x-api-key": process.env.API_KEY
+  },
+  body: JSON.stringify({
+    input: {
+      prompt: prompt,
+      resolution: "540p",
+      length: 5,
+      aspectRatio: "16:9"
+    }
+  })
 });
-
-module.exports = app;
