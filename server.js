@@ -14,23 +14,24 @@ app.post("/api/generate-video", async (req, res) => {
   try {
     const { prompt } = req.body;
 
-    {
-  "input": {
-    "image": "<string>",
-    "prompt": "<string>",
-    "resolution": "540p",
-    "length": 5,
-    "aspectRatio": "16:9",
-    "imageTail": "<string>"
-  },
-  "webhookUrl": "<string>",
-  "clientSource": "<string>"
-}
-'
+    const response = await fetch("https://api.pollo.ai/v1/video/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${process.env.API_KEY}`
+      },
+      body: JSON.stringify({
+        prompt: prompt,
+        duration: 10
+      })
+    });
 
-200
+    const data = await response.json();
 
-default
+    res.json({
+      success: true,
+      data: data
+    });
 
   } catch (err) {
     res.status(500).json({
