@@ -14,11 +14,23 @@ app.post("/api/generate-video", async (req, res) => {
   try {
     const { prompt } = req.body;
 
-    res.json({
-      success: true,
-      message: "Backend is ready",
-      prompt: prompt
-    });
+    {
+  "input": {
+    "image": "<string>",
+    "prompt": "<string>",
+    "resolution": "540p",
+    "length": 5,
+    "aspectRatio": "16:9",
+    "imageTail": "<string>"
+  },
+  "webhookUrl": "<string>",
+  "clientSource": "<string>"
+}
+'
+
+200
+
+default
 
   } catch (err) {
     res.status(500).json({
