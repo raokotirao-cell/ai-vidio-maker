@@ -28,6 +28,8 @@ app.post("/api/generate-video", async (req, res) => {
 
     const data = await response.json();
 
+console.log(data);
+
     res.json({
       success: true,
       data: data
