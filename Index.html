@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<h1>🚀 AI Studio</h1>
+
+<input type="file" id="file" accept="image/*">
+
+<br><br>
+
+<img id="preview" width="300">
+
+<br><br>
+
+<textarea
+id="prompt"
+placeholder="Describe your AI Video..."
+style="width:320px;height:100px;">
+</textarea>
+
+<br><br>
+
+<button onclick="generateImage()">🖼 Generate Image</button>
+
+<button onclick="generateVideo()">🎬 Generate Video</button>
+
+<button onclick="chatAI()">🤖 AI Chat</button>
+
+<br><br>
+
+<p id="status"></p>
+
+<img id="imageResult" width="320">
+
+<video
+id="videoResult"
+controls
+style="width:320px;display:none;">
+</video>
+</body>
+</html>
