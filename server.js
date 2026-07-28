@@ -80,4 +80,4 @@ if (!image) {
   }
 });
 
-module.exports = app;
+module.exports 
