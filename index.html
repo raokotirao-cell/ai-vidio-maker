@@ -75,16 +75,16 @@ document.getElementById("status").innerHTML =
 
 const prompt = document.getElementById("prompt").value;
 
+const file = document.getElementById("file").files[0];
+
+const formData = new FormData();
+formData.append("image", file);
+formData.append("prompt", prompt);
+
 const response = await fetch("/api/generate-video", {
   method: "POST",
-  headers:{
-    "Content-Type":"application/json"
-  },
-  body: JSON.stringify({
-    prompt: prompt
-  })
+  body: formData
 });
-
 const data = await response.json();
 
 console.log(data);
