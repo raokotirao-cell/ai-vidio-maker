@@ -14,7 +14,14 @@ app.post("/api/generate-video", async
  (req, res) => {
   try {
     const { prompt } = req.body;
+const image = req.file;
 
+if (!image) {
+  return res.status(400).json({
+    success: false,
+    error: "Image is required"
+  });
+}
     const response = await fetch(
       "https://pollo.ai/api/platform/generation/luma/luma-ray-2-0",
       {
