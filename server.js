@@ -11,6 +11,7 @@ const upload = multer({
   storage: multer.memoryStorage()
 });
 
+
 app.get("/", (req, res) => {
   res.send("AI Video Backend Running");
 });
@@ -25,29 +26,24 @@ app.post("/api/generate-video", upload.single("image"), async (req, res) => {
 
 
     if (!image) {
-
       return res.status(400).json({
         success: false,
         error: "Image is required"
       });
-
     }
 
 
     if (!process.env.API_KEY) {
-
       return res.status(500).json({
         success: false,
-        error: "API_KEY is missing"
+        error: "API_KEY missing in Vercel"
       });
-
     }
 
 
     const response = await fetch(
       "https://pollo.ai/api/platform/generation/luma/luma-ray-2-0",
       {
-
         method: "POST",
 
         headers: {
@@ -56,21 +52,13 @@ app.post("/api/generate-video", upload.single("image"), async (req, res) => {
         },
 
         body: JSON.stringify({
-
           input: {
-
             prompt: prompt,
-
             resolution: "540p",
-
             length: 5,
-
             aspectRatio: "16:9"
-
           }
-
         })
-
       }
     );
 
@@ -78,29 +66,35 @@ app.post("/api/generate-video", upload.single("image"), async (req, res) => {
     const data = await response.json();
 
 
+    console.log("Pollo Response:", data);
+
+
+    if (!response.ok) {
+
+      return res.status(response.status).json({
+        success: false,
+        error: data
+      });
+
+    }
+
+
     res.json({
-
       success: true,
-
       taskId: data.taskId,
-
-      response: data
-
+      apiResponse: data
     });
 
 
-  } catch (err) {
+  } catch (error) {
 
 
-    console.log(err);
+    console.log("Server Error:", error);
 
 
     res.status(500).json({
-
       success: false,
-
-      error: String(err)
-
+      error: error.message
     });
 
 
