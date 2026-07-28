@@ -35,7 +35,7 @@ margin-top:15px;
 
 <p>Select Image</p>
 
-<input type="file" accept="image/*" id="file">
+<input type="file" accept="image/*" id="file" onchange="showImage(event)">
 
 <br>
 
@@ -55,44 +55,75 @@ Generate Video
 
 <h3 id="status"></h3>
 
-<video id="video" controls style="display:none;">
-</video>
+<video id="video" controls style="display:none;"></video>
 
 
 <script>
 
-document.getElementById("file").onchange=function(e){
+function showImage(event){
 
-document.getElementById("image").src =
-URL.createObjectURL(e.target.files[0]);
+const img = document.getElementById("image");
+
+img.src = URL.createObjectURL(event.target.files[0]);
 
 }
+
 
 async function generateVideo(){
 
 document.getElementById("status").innerHTML =
 "AI Creating Video...";
 
-const prompt = document.getElementById("prompt").value;
 
-const file = document.getElementById("file").files[0];
+const prompt =
+document.getElementById("prompt").value;
+
+
+const file =
+document.getElementById("file").files[0];
+
+
+if(!file){
+
+document.getElementById("status").innerHTML =
+"Please select image";
+
+return;
+
+}
+
 
 const formData = new FormData();
+
 formData.append("image", file);
+
 formData.append("prompt", prompt);
 
-const response = await fetch("/api/generate-video", {
-  method: "POST",
-  body: formData
+
+
+try{
+
+
+const response = await fetch("/api/generate-video",{
+
+method:"POST",
+
+body:formData
+
 });
+
+
 const data = await response.json();
 
+
 console.log(data);
+
+
 
 if(data.taskId){
 
 document.getElementById("status").innerHTML =
-"Video processing started. Please wait...";
+"Video generation started...";
 
 }else{
 
@@ -101,11 +132,18 @@ document.getElementById("status").innerHTML =
 
 }
 
-}
 
 }
 
+catch(error){
 
+document.getElementById("status").innerHTML =
+error.message;
+
+}
+
+
+}
 
 </script>
 
