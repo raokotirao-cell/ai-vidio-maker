@@ -10,10 +10,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 app.get("/", (req, res) => {
   res.send("AI Video Backend Running");
 });
-
-app.post("/api/generate-video", async
-
- (req, res) => {
+app.post("/api/generate-video", upload.single("image"), async (req, res) => {
   try {
     const { prompt } = req.body;
 const image = req.file;
