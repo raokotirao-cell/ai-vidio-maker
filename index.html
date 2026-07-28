@@ -89,21 +89,17 @@ const data = await response.json();
 
 console.log(data);
 
-if(data.videoUrl){
-
-let video=document.getElementById("video");
-
-video.style.display="block";
-video.src=data.videoUrl;
-video.play();
+if(data.taskId){
 
 document.getElementById("status").innerHTML =
-"Video Ready!";
+"Video processing started. Please wait...";
 
 }else{
 
 document.getElementById("status").innerHTML =
-"Video URL not received";
+"Video generation failed";
+
+}
 
 }
 
