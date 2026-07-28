@@ -1,3 +1,6 @@
+try {
+console.log("BODY:", req.body);
+console.log("FILE:", req.file);
 const multer = require("multer");
 const express = require("express");
 const cors = require("cors");
